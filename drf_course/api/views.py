@@ -14,7 +14,7 @@ from rest_framework import generics
 #   return Response(serializer.data)
 
 class ProductListAPIView(generics.ListAPIView):
-  queryset = Product.objects.filter(stock_gt=0)
+  queryset = Product.objects.filter(stock__gt=0)
   serializer_class = ProductSerializer
 
 # @api_view(['GET'])
