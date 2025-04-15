@@ -39,7 +39,7 @@ class Order(models.Model):
   products = models.ManyToManyField(Product, through="OrderItem", related_name="orders")
   
   def __str__(self):
-    return f"Order {self.order.id} by {self.user.username}"
+    return f"Order {self.order_id} by {self.user.username}"
   
 
 class OrderItem(models.Model):
