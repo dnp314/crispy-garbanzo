@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework import APIView
 
 # @api_view(['GET'])
 # def product_list(request):
@@ -50,12 +50,22 @@ class UserOrderListAPIView(generics.ListAPIView):
     return qs.filter(user=user)
 
 
-@api_view(['GET'])
-def product_info(request):
-  products = Product.objects.all()
-  serializer = ProductInfoSerializer({
-    'products': products,
-    'count': len(products),
-    'max_price': products.aggregate(max_price=Max('price'))['max_price']
-  })
-  return Response(serializer.data)
+# @api_view(['GET'])
+# def product_info(request):
+#   products = Product.objects.all()
+#   serializer = ProductInfoSerializer({
+#     'products': products,
+#     'count': len(products),
+#     'max_price': products.aggregate(max_price=Max('price'))['max_price']
+#   })
+#   return Response(serializer.data)
+
+class ProductInfoAPIView(APIView):
+  def get(self, request):
+    products = Product.objects.all()
+    serializer = ProductInfoSerializer({
+      'products': products,
+      'count': len(products),
+      'max_price': products.aggregate(max_price=Max('price'))['max_price']
+    })
+    return Response(serializer.data)
