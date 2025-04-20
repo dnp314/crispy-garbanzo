@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import APIView
+from rest_framework.views import APIView
 
 # @api_view(['GET'])
 # def product_list(request):
@@ -14,10 +14,11 @@ from rest_framework import APIView
 #   serializer = ProductSerializer(products, many=True)
 #   return Response(serializer.data)
 
-class ProductListAPIView(generics.ListAPIView):
-  queryset = Product.objects.filter(stock__gt=0)
+class ProductListCreateAPIView(generics.ListCreateAPIView):
+  queryset = Product.objects.all()
   serializer_class = ProductSerializer
 
+  
 # @api_view(['GET'])
 # def product_detail(request, pk):
 #   product = get_object_or_404(Product, pk=pk)
